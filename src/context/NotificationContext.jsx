@@ -5,8 +5,8 @@ const NotificationContext = createContext();
 export const NotificationProvider = ({ children }) => {
   const [notification, setNotification] = useState(null);
 
-  const showNotification = useCallback((message, type = 'success') => {
-    setNotification({ message, type, id: Date.now() });
+  const showNotification = useCallback((message, type = 'success', action = null) => {
+    setNotification({ message, type, action, id: Date.now() });
   }, []);
 
   useEffect(() => {
@@ -32,23 +32,41 @@ export const NotificationProvider = ({ children }) => {
               notification.type === 'error' ? 'from-red-500 via-orange-400 to-red-600' : 'from-emerald-500 via-green-400 to-emerald-600'
             } animate-gradient-slow`}></div>
             
-            <div className="relative flex items-center">
-              <div className="pr-4">
-                <h4 className={`font-display text-[11px] font-extrabold uppercase tracking-[0.25em] mb-1 leading-none ${notification.type === 'error' ? 'text-red-400' : 'text-emerald-500'}`}>
-                  {notification.type === 'error' ? 'Alert Status' : 'Success Status'}
-                </h4>
-                <p className={`font-sans text-[13px] font-semibold leading-relaxed tracking-tight ${notification.type === 'error' ? 'text-red-700' : 'text-emerald-900'}`}>
-                  {notification.message}
-                </p>
+            <div className="relative flex flex-col gap-4">
+              <div className="flex items-center">
+                <div className="pr-4">
+                  <h4 className={`font-display text-[11px] font-extrabold uppercase tracking-[0.25em] mb-1 leading-none ${notification.type === 'error' ? 'text-red-400' : 'text-emerald-500'}`}>
+                    {notification.type === 'error' ? 'Alert Status' : 'Success Status'}
+                  </h4>
+                  <p className={`font-sans text-[13px] font-semibold leading-relaxed tracking-tight ${notification.type === 'error' ? 'text-red-700' : 'text-emerald-900'}`}>
+                    {notification.message}
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setNotification(null)}
+                  className="ml-auto p-1 text-neutral-300 hover:text-neutral-900 transition-all hover:rotate-90 duration-300"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
-              <button 
-                onClick={() => setNotification(null)}
-                className="ml-auto p-1 text-neutral-300 hover:text-neutral-900 transition-all hover:rotate-90 duration-300"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+
+              {notification.action && (
+                <button
+                  onClick={() => {
+                    notification.action.onClick();
+                    setNotification(null);
+                  }}
+                  className={`w-full py-2.5 rounded-xl font-display text-[10px] uppercase tracking-widest font-black transition-all duration-300 ${
+                    notification.type === 'error' 
+                      ? 'bg-red-500 text-white hover:bg-red-600' 
+                      : 'bg-soxenly-green text-white hover:bg-soxenly-leaf'
+                  }`}
+                >
+                  {notification.action.label}
+                </button>
+              )}
             </div>
 
             {/* Premium Animated Border Line */}

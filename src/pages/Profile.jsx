@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("profile");
@@ -347,7 +348,7 @@ export default function Profile() {
                 <h2 className="font-serif text-2xl text-soxenly-green mb-6 border-b border-soxenly-beige pb-4">My Wallet</h2>
                 <div className="bg-soxenly-green p-8 text-center text-soxenly-cream max-w-sm mx-auto shadow-sm">
                   <span className="text-xs font-display uppercase tracking-widest opacity-80 block mb-2">Available Balance</span>
-                  <h3 className="font-serif text-5xl">₹{wallet.toFixed(2)}</h3>
+                  <h3 className="font-display tabular-nums font-bold text-5xl">{formatCurrency(wallet)}</h3>
                   <p className="text-xs font-display opacity-60 mt-4">Use this balance securely during checkout.</p>
                 </div>
               </div>

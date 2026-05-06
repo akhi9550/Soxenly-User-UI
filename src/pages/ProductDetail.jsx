@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useNotification } from "../context/NotificationContext";
+import { useCart } from "../context/CartContext";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -16,6 +18,7 @@ export default function ProductDetail() {
 
   const [activeAccordion, setActiveAccordion] = useState(null);
   const { showNotification } = useNotification();
+  const { fetchCartCount } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -73,7 +76,11 @@ export default function ProductDetail() {
       const data = await response.json();
       
       if (response.ok) {
-        showNotification("Product added to cart successfully!");
+        fetchCartCount();
+        showNotification("Product added to cart successfully!", "success", {
+          label: "View Cart",
+          onClick: () => navigate("/cart")
+        });
       } else {
         showNotification(data.message || data.error || "Failed to add to cart", "error");
       }
@@ -85,8 +92,7 @@ export default function ProductDetail() {
   const handleAddToWishlist = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setActionMessage({ text: "Please login to manage wishlist", type: "error" });
-      setTimeout(() => setActionMessage({ text: "", type: "" }), 5000);
+      showNotification("Please login to manage wishlist", "error");
       return;
     }
 
@@ -100,7 +106,7 @@ export default function ProductDetail() {
       const data = await response.json();
       
       if (response.ok) {
-        showNotification("Added to wishlist!");
+        showNotification("Added to wishlist!", "success");
       } else {
         showNotification(data.message || data.error || "Failed to add to wishlist", "error");
       }
@@ -279,12 +285,12 @@ export default function ProductDetail() {
               {product.name}
             </h1>
             <div className="flex items-baseline gap-4">
-              <p className="text-4xl font-bold tracking-tight text-soxenly-green tabular-nums">
-                ₹{product.price.toFixed(2)}
+              <p className="font-display text-4xl font-bold tracking-tight text-soxenly-green tabular-nums">
+                {formatCurrency(product.price)}
               </p>
               {product.discounted_price < product.price && (
                 <span className="font-display text-lg text-neutral-400 line-through">
-                  ₹{product.discounted_price.toFixed(2)}
+                  {formatCurrency(product.discounted_price)}
                 </span>
               )}
             </div>
@@ -471,7 +477,7 @@ export default function ProductDetail() {
                     <p className="text-[9px] font-display uppercase tracking-widest text-neutral-600 mt-1">{p.category_name}</p>
                   </div>
                   <div className="text-right">
-                    <span className="text-base font-bold tracking-tight text-soxenly-green tabular-nums">₹{p.price.toFixed(2)}</span>
+                    <span className="font-display text-base font-bold tracking-tight text-soxenly-green tabular-nums">{formatCurrency(p.price)}</span>
                   </div>
                 </div>
               </Link>

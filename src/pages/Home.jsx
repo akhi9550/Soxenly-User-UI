@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { formatCurrency } from "../utils/formatCurrency";
 import heroImageLocal from "../assets/hero.png";
 
 export default function Home() {
@@ -194,7 +195,7 @@ export default function Home() {
                 <div className="space-y-1">
                   <h3 className="font-display text-base uppercase tracking-wider text-soxenly-charcoal group-hover:text-soxenly-leaf transition-colors">{product.name}</h3>
                   <p className="text-[11px] font-display uppercase tracking-widest text-soxenly-charcoal/40 font-medium">{product.category_name}</p>
-                  <p className="text-xl font-bold tracking-tight text-soxenly-green tabular-nums">₹{product.price.toFixed(2)}</p>
+                  <p className="font-display text-xl font-bold tracking-tight text-soxenly-green tabular-nums">{formatCurrency(product.price)}</p>
                 </div>
               </Link>
             ))}

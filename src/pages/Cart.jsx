@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useNotification } from "../context/NotificationContext";
+import { useCart } from "../context/CartContext";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export default function Cart() {
   const [cartData, setCartData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { showNotification } = useNotification();
+  const { fetchCartCount } = useCart();
   const navigate = useNavigate();
 
   const fetchCart = async () => {
@@ -29,8 +32,10 @@ export default function Cart() {
 
       if (response.ok && data.data) {
         setCartData(data.data);
+        fetchCartCount();
       } else {
         setCartData({ Cart: [], TotalPrice: 0 });
+        fetchCartCount();
       }
     } catch (err) {
       console.error("Error fetching cart", err);
@@ -54,6 +59,7 @@ export default function Cart() {
       if (response.ok) {
         showNotification("Removed from cart");
         fetchCart(); // Refresh cart to get updated totals
+        fetchCartCount();
       }
     } catch (err) {
       showNotification("Error removing item", "error");
@@ -70,6 +76,7 @@ export default function Cart() {
       if (response.ok) {
         showNotification("Cart cleared");
         fetchCart();
+        fetchCartCount();
       }
     } catch (err) {
       showNotification("Error clearing cart", "error");
@@ -85,6 +92,7 @@ export default function Cart() {
       });
       if (response.ok) {
         fetchCart();
+        fetchCartCount();
       } else {
         const data = await response.json();
         showNotification(data.error || "Cannot add more", "error");
@@ -108,6 +116,7 @@ export default function Cart() {
       });
       if (response.ok) {
         fetchCart();
+        fetchCartCount();
       }
     } catch (err) {
       console.error(err);
@@ -163,7 +172,7 @@ export default function Cart() {
                       <h3 className="font-display font-bold uppercase text-lg tracking-widest hover:underline decoration-2 underline-offset-4">{item.product_name}</h3>
                       <p className="text-xs font-display uppercase tracking-widest text-neutral-500 mt-1">Size: {item.size}</p>
                     </Link>
-                    <p className="text-xl font-bold tracking-tight text-soxenly-green tabular-nums">₹{item.total_price}</p>
+                    <p className="font-display text-xl font-bold tracking-tight text-soxenly-green tabular-nums">{formatCurrency(item.total_price)}</p>
                   </div>
                   
                   <div className="flex justify-between items-end mt-6">
@@ -199,7 +208,7 @@ export default function Cart() {
               <div className="space-y-4 mb-8 font-display uppercase text-sm">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                   <span className="font-bold tracking-tight tabular-nums">₹{cartData?.TotalPrice || 0}</span>
+                   <span className="font-bold tracking-tight tabular-nums">{formatCurrency(cartData?.TotalPrice || 0)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
@@ -211,11 +220,11 @@ export default function Cart() {
               
               <div className="flex justify-between items-end border-t border-soxenly-beige pt-4 mb-8 font-display">
                 <span className="uppercase tracking-widest font-bold">Total</span>
-                 <span className="text-3xl font-bold tracking-tighter tabular-nums text-soxenly-green">₹{cartData?.TotalPrice || 0}</span>
+                 <span className="text-3xl font-bold tracking-tighter tabular-nums text-soxenly-green">{formatCurrency(cartData?.TotalPrice || 0)}</span>
               </div>
               
               <Link to="/checkout" className="block w-full py-5 text-center bg-soxenly-green text-soxenly-cream font-display uppercase tracking-[0.2em] font-black text-sm border border-soxenly-beige hover:bg-white hover:text-soxenly-green transition-all">
-                Proceed to Checkout
+                Place Order
               </Link>
             </div>
           </div>

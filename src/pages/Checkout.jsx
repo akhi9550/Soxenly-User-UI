@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { formatCurrency } from "../utils/formatCurrency";
 
 const Checkout = () => {
   const [checkoutData, setCheckoutData] = useState(null);
@@ -295,7 +296,7 @@ const Checkout = () => {
                     <div className="flex-grow">
                       <h4 className="font-display font-bold text-xs uppercase truncate w-40">{item.product_name}</h4>
                       <p className="text-[10px] font-display text-neutral-500 uppercase mt-1">Size: {item.size} × {item.quantity}</p>
-                      <p className="text-base font-bold tracking-tight text-soxenly-green tabular-nums">₹{item.total_price}</p>
+                      <p className="font-display text-base font-bold tracking-tight text-soxenly-green tabular-nums">{formatCurrency(item.total_price)}</p>
                     </div>
                   </div>
                 ))}
@@ -304,19 +305,19 @@ const Checkout = () => {
               <div className="space-y-4 mb-8 pt-6 border-t border-soxenly-beige font-display uppercase text-sm">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-bold tracking-tight tabular-nums">₹{subtotal}</span>
+                  <span className="font-bold tracking-tight tabular-nums">{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
                   <span className={isFreeShipping ? "text-green-600 font-bold" : "text-neutral-500"}>
-                    {isFreeShipping ? "FREE" : "₹40"}
+                    {isFreeShipping ? "FREE" : formatCurrency(40)}
                   </span>
                 </div>
               </div>
 
               <div className="flex justify-between items-end border-t border-soxenly-beige pt-4 mb-8 font-display">
                 <span className="uppercase tracking-widest font-bold">Total</span>
-                <span className="text-3xl font-bold tracking-tighter tabular-nums text-soxenly-green">₹{subtotal === 0 ? 0 : (isFreeShipping ? subtotal : subtotal + 40)}</span>
+                <span className="text-3xl font-bold tracking-tighter tabular-nums text-soxenly-green">{formatCurrency(subtotal === 0 ? 0 : (isFreeShipping ? subtotal : subtotal + 40))}</span>
               </div>
 
               <button 

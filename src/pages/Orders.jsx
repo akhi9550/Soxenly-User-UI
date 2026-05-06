@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -137,7 +138,7 @@ export default function Orders() {
                     </div>
                     <div className="md:text-right">
                       <span className="md:hidden font-display text-[9px] uppercase tracking-widest text-soxenly-charcoal/60 block mb-1">Amount</span>
-                      <span className="font-serif text-lg text-soxenly-green">₹{order.FinalPrice}</span>
+                      <span className="font-display tabular-nums text-lg text-soxenly-green font-bold">{formatCurrency(order.FinalPrice)}</span>
                     </div>
                     <div className="flex gap-2 md:justify-end mt-4 md:mt-0">
                       <button onClick={() => setSelectedOrder(fullOrder)} className="flex-1 md:flex-none px-4 py-2 border border-soxenly-green text-soxenly-green text-[10px] font-display tracking-widest uppercase font-bold hover:bg-soxenly-green hover:text-soxenly-cream transition-all duration-300">Details</button>
@@ -199,7 +200,7 @@ export default function Orders() {
                           <p className="font-serif text-lg text-soxenly-green leading-none">{item.product_name}</p>
                           <p className="font-display text-[10px] tracking-widest text-soxenly-charcoal/60 uppercase">Quantity: {item.quantity}</p>
                         </div>
-                        <p className="font-serif font-bold text-lg text-soxenly-green">₹{item.total_price}</p>
+                        <p className="font-display tabular-nums font-bold text-lg text-soxenly-green">{formatCurrency(item.total_price)}</p>
                       </div>
                     ))}
                   </div>
@@ -207,7 +208,7 @@ export default function Orders() {
                 <div className="bg-soxenly-cream p-8 border border-soxenly-beige space-y-4">
                   <div className="flex justify-between font-display text-sm uppercase">
                     <span className="text-soxenly-charcoal/60 font-bold tracking-widest">Total</span>
-                    <span className="font-serif text-3xl text-soxenly-green">₹{selectedOrder.OrderDetails.FinalPrice}</span>
+                    <span className="font-display tabular-nums font-bold text-3xl text-soxenly-green">{formatCurrency(selectedOrder.OrderDetails.FinalPrice)}</span>
                   </div>
                 </div>
                 <div className="flex gap-4">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { formatCurrency } from "../utils/formatCurrency";
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -146,8 +147,8 @@ export default function Shop() {
                      {product.category_name}
                    </p>
                    <div className="flex items-center gap-2">
-                    <p className="text-xl font-bold tracking-tight text-soxenly-green tabular-nums">
-                      ₹{product.price.toFixed(2)}
+                    <p className="font-display text-xl font-bold tracking-tight text-soxenly-green tabular-nums">
+                      {formatCurrency(product.price)}
                     </p>
                   </div>
                 </div>
