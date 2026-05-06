@@ -29,15 +29,15 @@ export const NotificationProvider = ({ children }) => {
           <div className={`relative overflow-hidden min-w-[340px] p-6 rounded-[24px] backdrop-blur-2xl bg-white/80 border border-white/40 shadow-[0_25px_80px_rgba(0,0,0,0.12)] group transition-all duration-300`}>
             {/* Ambient Glow Background */}
             <div className={`absolute -inset-1 opacity-10 group-hover:opacity-20 transition-opacity duration-700 blur-2xl bg-gradient-to-r ${
-              notification.type === 'error' ? 'from-red-500 via-orange-400 to-red-600' : 'from-[#1B4332] via-[#40916C] to-[#1B4332]'
+              notification.type === 'error' ? 'from-red-500 via-orange-400 to-red-600' : 'from-emerald-500 via-green-400 to-emerald-600'
             } animate-gradient-slow`}></div>
             
             <div className="relative flex items-center">
               <div className="pr-4">
-                <h4 className="font-display text-[11px] font-extrabold uppercase tracking-[0.25em] text-neutral-400 mb-1 leading-none">
-                  {notification.type === 'error' ? 'Alert Status' : 'Soxenly Notice'}
+                <h4 className={`font-display text-[11px] font-extrabold uppercase tracking-[0.25em] mb-1 leading-none ${notification.type === 'error' ? 'text-red-400' : 'text-emerald-500'}`}>
+                  {notification.type === 'error' ? 'Alert Status' : 'Success Status'}
                 </h4>
-                <p className={`font-sans text-[13px] font-semibold leading-relaxed tracking-tight ${notification.type === 'error' ? 'text-red-700' : 'text-neutral-900'}`}>
+                <p className={`font-sans text-[13px] font-semibold leading-relaxed tracking-tight ${notification.type === 'error' ? 'text-red-700' : 'text-emerald-900'}`}>
                   {notification.message}
                 </p>
               </div>
@@ -54,7 +54,7 @@ export const NotificationProvider = ({ children }) => {
             {/* Premium Animated Border Line */}
             <div className="absolute bottom-0 left-0 w-full h-[3px] bg-neutral-100/30">
               <div className={`h-full transition-all duration-[5000ms] ease-linear w-0 animate-progress-line ${
-                notification.type === 'error' ? 'bg-red-500 shadow-[0_0_10px_#ef4444]' : 'bg-[#1B4332] shadow-[0_0_10px_#1B4332]'
+                notification.type === 'error' ? 'bg-red-500 shadow-[0_0_10px_#ef4444]' : 'bg-emerald-500 shadow-[0_0_10px_#10b981]'
               }`}></div>
             </div>
           </div>
