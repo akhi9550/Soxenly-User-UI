@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { useNotification } from "../context/NotificationContext";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export default function ProductDetail() {
   const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   const [activeAccordion, setActiveAccordion] = useState(null);
-  const [actionMessage, setActionMessage] = useState({ text: "", type: "" });
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -53,14 +54,12 @@ export default function ProductDetail() {
   const handleAddToCart = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setActionMessage({ text: "Please login to add items to cart", type: "error" });
-      setTimeout(() => setActionMessage({ text: "", type: "" }), 3000);
+      showNotification("Please login to add items to cart", "error");
       return;
     }
 
     if (!selectedSize) {
-      setActionMessage({ text: "Please select a size first", type: "error" });
-      setTimeout(() => setActionMessage({ text: "", type: "" }), 3000);
+      showNotification("Please select a size first", "error");
       return;
     }
 
@@ -73,22 +72,14 @@ export default function ProductDetail() {
       });
       const data = await response.json();
       
-      if (response.status === 401) {
-        localStorage.removeItem("token");
-        setActionMessage({ text: "Session expired. Please log in again.", type: "error" });
-        setTimeout(() => navigate('/login'), 2000);
-        return;
-      }
-      
       if (response.ok) {
-        setActionMessage({ text: "Product added to cart successfully!", type: "success", isCart: true });
+        showNotification("Product added to cart successfully!");
       } else {
-        setActionMessage({ text: data.message || data.error || "Failed to add to cart", type: "error" });
+        showNotification(data.message || data.error || "Failed to add to cart", "error");
       }
     } catch (err) {
-      setActionMessage({ text: "Connection error. Try again.", type: "error" });
+      showNotification("Connection error. Try again.", "error");
     }
-    setTimeout(() => setActionMessage({ text: "", type: "" }), 5000);
   };
 
   const handleAddToWishlist = async () => {
@@ -108,22 +99,14 @@ export default function ProductDetail() {
       });
       const data = await response.json();
       
-      if (response.status === 401) {
-        localStorage.removeItem("token");
-        setActionMessage({ text: "Session expired. Please log in again.", type: "error" });
-        setTimeout(() => navigate('/login'), 2000);
-        return;
-      }
-      
       if (response.ok) {
-        setActionMessage({ text: "Added to wishlist!", type: "success" });
+        showNotification("Added to wishlist!");
       } else {
-        setActionMessage({ text: data.message || data.error || "Failed to add to wishlist", type: "error" });
+        showNotification(data.message || data.error || "Failed to add to wishlist", "error");
       }
     } catch (err) {
-      setActionMessage({ text: "Connection error. Try again.", type: "error" });
+      showNotification("Connection error. Try again.", "error");
     }
-    setTimeout(() => setActionMessage({ text: "", type: "" }), 5000);
   };
 
 
@@ -151,18 +134,6 @@ export default function ProductDetail() {
   return (
     <div className="max-w-[1600px] mx-auto px-4 lg:px-8 py-12 relative">
       {/* ACTION NOTIFICATION TOAST */}
-      {actionMessage.text && (
-        <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] px-6 py-4 border font-display text-xs uppercase tracking-widest transition-all flex items-center gap-4
-          ${actionMessage.type === 'success' ? 'bg-soxenly-green border-soxenly-beige text-soxenly-cream' : 'bg-white border-soxenly-beige text-red-600'}
-          animate-slideUp`}>
-          <span>{actionMessage.text}</span>
-          {actionMessage.isCart && (
-            <Link to="/cart" className="whitespace-nowrap border-b border-white hover:text-neutral-300 pb-0.5">
-              Go to Cart →
-            </Link>
-          )}
-        </div>
-      )}
 
       {/* SIZE GUIDE MODAL */}
       {showSizeGuide && (
@@ -267,7 +238,7 @@ export default function ProductDetail() {
           <div className="border border-soxenly-beige aspect-square bg-neutral-100 overflow-hidden relative">
             {mainImage ? (
               <img 
-                src={`${import.meta.env.VITE_API_BASE_URL}${mainImage}`} 
+                src={mainImage.startsWith("http") ? mainImage : `${import.meta.env.VITE_API_BASE_URL}${mainImage}`} 
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
@@ -291,7 +262,7 @@ export default function ProductDetail() {
                   onClick={() => setMainImage(img)}
                   className={`aspect-square border ${mainImage === img ? 'border-[red-600]' : 'border-soxenly-beige'} bg-neutral-100 overflow-hidden hover:opacity-80 transition-all`}
                 >
-                  <img src={`${import.meta.env.VITE_API_BASE_URL}${img}`} alt="" className="w-full h-full object-cover" />
+                  <img src={img.startsWith("http") ? img : `${import.meta.env.VITE_API_BASE_URL}${img}`} alt="" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -304,13 +275,13 @@ export default function ProductDetail() {
             <span className="text-xs font-display uppercase tracking-[0.3em] text-[red-600] font-bold">
               {product.category_name}
             </span>
-            <h1 className="font-serif text-5xl lg:text-7xl leading-tight mt-2 mb-4 text-soxenly-green">
+            <h1 className="font-serif text-3xl lg:text-5xl leading-tight mt-2 mb-4 text-soxenly-green">
               {product.name}
             </h1>
             <div className="flex items-baseline gap-4">
-              <span className="font-display text-4xl lg:text-5xl">
+              <p className="text-4xl font-bold tracking-tight text-soxenly-green tabular-nums">
                 ₹{product.price.toFixed(2)}
-              </span>
+              </p>
               {product.discounted_price < product.price && (
                 <span className="font-display text-lg text-neutral-400 line-through">
                   ₹{product.discounted_price.toFixed(2)}
@@ -475,7 +446,7 @@ export default function ProductDetail() {
       {/* RELATED PRODUCTS */}
       {relatedProducts.length > 0 && (
         <section className="mt-24 border-t-2 border-soxenly-beige pt-16">
-          <h2 className="font-display text-4xl uppercase mb-8 tracking-tighter">You might also like</h2>
+          <h2 className="font-display text-2xl uppercase mb-8 tracking-widest">You might also like</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {relatedProducts.map((p) => (
               <Link 
@@ -488,7 +459,7 @@ export default function ProductDetail() {
                     <img
                       alt={p.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      src={`${import.meta.env.VITE_API_BASE_URL}${p.image[0]}`}
+                      src={p.image[0].startsWith("http") ? p.image[0] : `${import.meta.env.VITE_API_BASE_URL}${p.image[0]}`}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[10px] font-display text-neutral-400">NO IMAGE</div>
@@ -496,11 +467,11 @@ export default function ProductDetail() {
                 </div>
                 <div className="p-4 flex justify-between items-start gap-2">
                   <div>
-                    <h3 className="font-display text-xl uppercase leading-none truncate max-w-[150px]">{p.name}</h3>
-                    <p className="text-[11px] font-display uppercase tracking-widest text-neutral-600 mt-1">{p.category_name}</p>
+                    <h3 className="font-display text-sm font-bold uppercase leading-none truncate max-w-[150px]">{p.name}</h3>
+                    <p className="text-[9px] font-display uppercase tracking-widest text-neutral-600 mt-1">{p.category_name}</p>
                   </div>
                   <div className="text-right">
-                    <span className="font-display text-xl">₹<span>{p.price.toFixed(2)}</span></span>
+                    <span className="text-base font-bold tracking-tight text-soxenly-green tabular-nums">₹{p.price.toFixed(2)}</span>
                   </div>
                 </div>
               </Link>

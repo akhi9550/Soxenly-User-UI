@@ -182,7 +182,7 @@ export default function Home() {
                     <img
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      src={`${import.meta.env.VITE_API_BASE_URL}${product.image[0]}`}
+                      src={getImageUrl(product.image[0])}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[10px] font-display text-neutral-400 uppercase tracking-widest">Natural Blend</div>
@@ -194,7 +194,7 @@ export default function Home() {
                 <div className="space-y-1">
                   <h3 className="font-display text-base uppercase tracking-wider text-soxenly-charcoal group-hover:text-soxenly-leaf transition-colors">{product.name}</h3>
                   <p className="text-[11px] font-display uppercase tracking-widest text-soxenly-charcoal/40 font-medium">{product.category_name}</p>
-                  <p className="font-serif text-lg text-soxenly-green">₹{product.price.toFixed(2)}</p>
+                  <p className="text-xl font-bold tracking-tight text-soxenly-green tabular-nums">₹{product.price.toFixed(2)}</p>
                 </div>
               </Link>
             ))}

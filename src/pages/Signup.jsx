@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
+import { useNotification } from "../context/NotificationContext";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ export default function Signup() {
     phone: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const { showNotification } = useNotification();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -21,7 +22,6 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
     try {
@@ -36,13 +36,13 @@ export default function Signup() {
       const data = await response.json();
 
       if (response.ok) {
-        // Successful signup, redirect to login
+        showNotification("Account created! Please sign in.");
         navigate("/login");
       } else {
-        setError(data.message || "Error creating account");
+        showNotification(data.message || "Error creating account", "error");
       }
     } catch (err) {
-      setError("Network error. Please try again.");
+      showNotification("Network error. Please try again.", "error");
     } finally {
       setLoading(false);
     }
@@ -90,11 +90,6 @@ export default function Signup() {
           </span>
           <h1 className="font-serif text-4xl text-soxenly-green mb-6">Register</h1>
           
-          {error && (
-            <div className="mb-4 p-3 bg-[red-600] text-soxenly-cream font-display text-xs border border-soxenly-beige">
-              {error}
-            </div>
-          )}
 
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
@@ -203,7 +198,7 @@ export default function Signup() {
           <div className="flex justify-center">
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
-              onError={() => setError("Google Sign Up failed.")}
+              onError={() => showNotification("Google Sign Up failed.", "error")}
               shape="rectangular"
               text="signup_with"
             />

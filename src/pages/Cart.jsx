@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useNotification } from "../context/NotificationContext";
 
 export default function Cart() {
   const [cartData, setCartData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [actionMessage, setActionMessage] = useState({ text: "", type: "" });
+  const { showNotification } = useNotification();
   const navigate = useNavigate();
 
   const fetchCart = async () => {
@@ -51,13 +52,12 @@ export default function Cart() {
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (response.ok) {
-        setActionMessage({ text: "Removed from cart", type: "success" });
+        showNotification("Removed from cart");
         fetchCart(); // Refresh cart to get updated totals
       }
     } catch (err) {
-      setActionMessage({ text: "Error removing item", type: "error" });
+      showNotification("Error removing item", "error");
     }
-    setTimeout(() => setActionMessage({ text: "", type: "" }), 5000);
   };
 
   const handleClearCart = async () => {
@@ -68,13 +68,12 @@ export default function Cart() {
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (response.ok) {
-        setActionMessage({ text: "Cart cleared", type: "success" });
+        showNotification("Cart cleared");
         fetchCart();
       }
     } catch (err) {
-      setActionMessage({ text: "Error clearing cart", type: "error" });
+      showNotification("Error clearing cart", "error");
     }
-    setTimeout(() => setActionMessage({ text: "", type: "" }), 3000);
   };
 
   const handleIncrement = async (productId, size) => {
@@ -88,8 +87,7 @@ export default function Cart() {
         fetchCart();
       } else {
         const data = await response.json();
-        setActionMessage({ text: data.error || "Cannot add more", type: "error" });
-        setTimeout(() => setActionMessage({ text: "", type: "" }), 5000);
+        showNotification(data.error || "Cannot add more", "error");
       }
     } catch (err) {
       console.error(err);
@@ -124,13 +122,6 @@ export default function Cart() {
 
   return (
     <div className="max-w-[1600px] mx-auto px-4 lg:px-8 py-12 relative min-h-screen">
-      {actionMessage.text && (
-        <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] px-6 py-4 border font-display text-xs uppercase tracking-widest transition-all flex items-center gap-4
-          ${actionMessage.type === 'success' ? 'bg-soxenly-green border-soxenly-beige text-soxenly-cream' : 'bg-white border-soxenly-beige text-red-600'}
-          animate-slideUp`}>
-          <span>{actionMessage.text}</span>
-        </div>
-      )}
 
       <h1 className="font-serif text-4xl lg:text-5xl text-soxenly-green border-b border-soxenly-beige pb-8 mb-12">Your Cart</h1>
 
@@ -157,7 +148,7 @@ export default function Cart() {
                 <Link to={`/product/${item.product_id}`} className="block sm:w-32 sm:h-40 bg-neutral-100 border border-soxenly-beige shrink-0 overflow-hidden">
                   {item.image ? (
                     <img 
-                      src={`${import.meta.env.VITE_API_BASE_URL}${item.image}`} 
+                      src={item.image.startsWith("http") ? item.image : `${import.meta.env.VITE_API_BASE_URL}${item.image}`} 
                       alt={item.product_name} 
                       className="w-full h-full object-cover"
                     />
@@ -172,7 +163,7 @@ export default function Cart() {
                       <h3 className="font-display font-bold uppercase text-lg tracking-widest hover:underline decoration-2 underline-offset-4">{item.product_name}</h3>
                       <p className="text-xs font-display uppercase tracking-widest text-neutral-500 mt-1">Size: {item.size}</p>
                     </Link>
-                    <p className="font-display font-bold text-lg">₹{item.total_price}</p>
+                    <p className="text-xl font-bold tracking-tight text-soxenly-green tabular-nums">₹{item.total_price}</p>
                   </div>
                   
                   <div className="flex justify-between items-end mt-6">
@@ -208,7 +199,7 @@ export default function Cart() {
               <div className="space-y-4 mb-8 font-display uppercase text-sm">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-bold">₹{cartData?.TotalPrice || 0}</span>
+                   <span className="font-bold tracking-tight tabular-nums">₹{cartData?.TotalPrice || 0}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
@@ -220,7 +211,7 @@ export default function Cart() {
               
               <div className="flex justify-between items-end border-t border-soxenly-beige pt-4 mb-8 font-display">
                 <span className="uppercase tracking-widest font-bold">Total</span>
-                <span className="text-3xl font-bold">₹{cartData?.TotalPrice || 0}</span>
+                 <span className="text-3xl font-bold tracking-tighter tabular-nums text-soxenly-green">₹{cartData?.TotalPrice || 0}</span>
               </div>
               
               <Link to="/checkout" className="block w-full py-5 text-center bg-soxenly-green text-soxenly-cream font-display uppercase tracking-[0.2em] font-black text-sm border border-soxenly-beige hover:bg-white hover:text-soxenly-green transition-all">

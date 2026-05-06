@@ -287,7 +287,7 @@ const Checkout = () => {
                   <div key={idx} className="flex gap-4">
                     <div className="w-16 h-20 bg-neutral-100 border border-soxenly-beige shrink-0 overflow-hidden">
                       {item.image ? (
-                        <img src={`${import.meta.env.VITE_API_BASE_URL}${item.image}`} alt={item.product_name} className="w-full h-full object-cover" />
+                        <img src={item.image.startsWith("http") ? item.image : `${import.meta.env.VITE_API_BASE_URL}${item.image}`} alt={item.product_name} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-[8px] font-display uppercase text-neutral-400">IMG</div>
                       )}
@@ -295,7 +295,7 @@ const Checkout = () => {
                     <div className="flex-grow">
                       <h4 className="font-display font-bold text-xs uppercase truncate w-40">{item.product_name}</h4>
                       <p className="text-[10px] font-display text-neutral-500 uppercase mt-1">Size: {item.size} × {item.quantity}</p>
-                      <p className="font-display font-bold text-sm mt-1">₹{item.total_price}</p>
+                      <p className="text-base font-bold tracking-tight text-soxenly-green tabular-nums">₹{item.total_price}</p>
                     </div>
                   </div>
                 ))}
@@ -304,7 +304,7 @@ const Checkout = () => {
               <div className="space-y-4 mb-8 pt-6 border-t border-soxenly-beige font-display uppercase text-sm">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-bold">₹{subtotal}</span>
+                  <span className="font-bold tracking-tight tabular-nums">₹{subtotal}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
@@ -316,7 +316,7 @@ const Checkout = () => {
 
               <div className="flex justify-between items-end border-t border-soxenly-beige pt-4 mb-8 font-display">
                 <span className="uppercase tracking-widest font-bold">Total</span>
-                <span className="text-3xl font-bold">₹{subtotal === 0 ? 0 : (isFreeShipping ? subtotal : subtotal + 40)}</span>
+                <span className="text-3xl font-bold tracking-tighter tabular-nums text-soxenly-green">₹{subtotal === 0 ? 0 : (isFreeShipping ? subtotal : subtotal + 40)}</span>
               </div>
 
               <button 

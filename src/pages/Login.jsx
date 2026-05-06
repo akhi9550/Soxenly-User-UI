@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
+import { useNotification } from "../context/NotificationContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const { showNotification } = useNotification();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
     try {
@@ -27,15 +27,15 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        // Successful login
         localStorage.setItem("token", data.data.AccessToken);
         localStorage.setItem("user", JSON.stringify(data.data.Users));
+        showNotification(`Welcome back, ${data.data.Users.firstname}`);
         navigate("/");
       } else {
-        setError(data.message || "Invalid email or password");
+        showNotification(data.message || "Invalid email or password", "error");
       }
     } catch (err) {
-      setError("Network error. Please try again.");
+      showNotification("Network error. Please try again.", "error");
     } finally {
       setLoading(false);
     }
@@ -44,7 +44,6 @@ export default function Login() {
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       setLoading(true);
-      setError("");
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/google-login`, {
         method: "POST",
         headers: {
@@ -83,11 +82,6 @@ export default function Login() {
           </span>
           <h1 className="font-serif text-4xl text-soxenly-green mb-6">Sign in</h1>
           
-          {error && (
-            <div className="mb-4 p-3 bg-[red-600] text-soxenly-cream font-display text-xs border border-soxenly-beige">
-              {error}
-            </div>
-          )}
 
           <div className="space-y-4">
             <div>
@@ -154,7 +148,7 @@ export default function Login() {
           <div className="flex justify-center">
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
-              onError={() => setError("Google Sign In failed.")}
+              onError={() => showNotification("Google Sign In failed.", "error")}
               shape="rectangular"
               text="signin_with"
             />

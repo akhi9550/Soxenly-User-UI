@@ -136,7 +136,7 @@ export default function Wishlist() {
             <div key={product.id} className="group border border-soxenly-beige relative bg-white flex flex-col transition-all duration-300">
               <Link to={`/product/${product.id}`} className="aspect-[4/5] bg-neutral-100 overflow-hidden block border-b border-soxenly-beige relative">
                 {product.image && product.image[0] ? (
-                  <img src={`${import.meta.env.VITE_API_BASE_URL}${product.image[0]}`} alt={product.name} className="w-full h-full object-cover transition-all duration-500" />
+                  <img src={product.image[0].startsWith("http") ? product.image[0] : `${import.meta.env.VITE_API_BASE_URL}${product.image[0]}`} alt={product.name} className="w-full h-full object-cover transition-all duration-500" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center font-display text-neutral-400">NO IMAGE</div>
                 )}
