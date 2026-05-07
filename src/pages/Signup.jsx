@@ -9,7 +9,7 @@ export default function Signup() {
     lastname: "",
     email: "",
     password: "",
-    phone: "",
+    phone: "+91",
   });
   const [showPassword, setShowPassword] = useState(false);
   const { showNotification } = useNotification();
@@ -17,7 +17,16 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "phone") {
+      // Ensure phone always starts with +91
+      let val = e.target.value;
+      if (!val.startsWith("+91")) {
+        val = "+91" + val.replace(/^\+91/, "");
+      }
+      setFormData({ ...formData, [e.target.name]: val });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {

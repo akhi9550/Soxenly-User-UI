@@ -293,7 +293,17 @@ export default function Profile() {
                     </div>
                     <div>
                       <label className="text-xs font-display uppercase tracking-[0.25em] font-bold mb-1 block">Phone</label>
-                      <input className="w-full border border-soxenly-beige px-4 py-3 text-sm focus:outline-none" value={profileForm.phone} onChange={e => setProfileForm({...profileForm, phone: e.target.value})} />
+                      <input 
+                        className="w-full border border-soxenly-beige px-4 py-3 text-sm focus:outline-none" 
+                        value={profileForm.phone} 
+                        onChange={e => {
+                          let val = e.target.value;
+                          if (!val.startsWith("+91")) {
+                            val = "+91" + val.replace(/^\+91/, "");
+                          }
+                          setProfileForm({...profileForm, phone: val});
+                        }} 
+                      />
                     </div>
                     <button type="submit" className="bg-soxenly-green text-soxenly-cream px-8 py-3 uppercase text-xs tracking-[0.25em] font-display font-bold hover:bg-soxenly-leaf transition-colors">Update Details</button>
                   </form>
