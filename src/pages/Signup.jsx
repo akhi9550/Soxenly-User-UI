@@ -22,6 +22,21 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Client-side validation
+    if (formData.firstname.length < 3) {
+      showNotification("First name must be at least 3 characters.", "error");
+      return;
+    }
+    if (!/^\+?[1-9]\d{1,14}$/.test(formData.phone)) {
+      showNotification("Please enter a valid phone number with country code (e.g. +91...)", "error");
+      return;
+    }
+    if (formData.password.length < 6) {
+      showNotification("Password must be at least 6 characters.", "error");
+      return;
+    }
+
     setLoading(true);
 
     try {

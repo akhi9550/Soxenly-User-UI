@@ -94,6 +94,17 @@ export default function Profile() {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     setError(""); setSuccess("");
+
+    // Client-side validation
+    if (profileForm.firstname.length < 3) {
+      setError("First name must be at least 3 characters.");
+      return;
+    }
+    if (!/^\+?[1-9]\d{1,14}$/.test(profileForm.phone)) {
+      setError("Please enter a valid phone number with country code (e.g. +91...)");
+      return;
+    }
+
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/users`, {
         method: "PUT",
@@ -108,7 +119,18 @@ export default function Profile() {
         fetchData();
       } else {
         const data = await res.json();
-        setError(data.message || "Failed to update profile.");
+        let errorMsg = data.message || "Failed to update profile.";
+        if (data.error) {
+          const err = data.error.toLowerCase();
+          if (err.includes("firstname") && err.includes("gte")) {
+            errorMsg = "First name must be at least 3 characters.";
+          } else if (err.includes("phone") && err.includes("e164")) {
+            errorMsg = "Invalid phone format. Please include country code (+91).";
+          } else {
+            errorMsg = data.error;
+          }
+        }
+        setError(errorMsg);
       }
     } catch (err) {
       setError("Network error.");
@@ -118,6 +140,16 @@ export default function Profile() {
   const handlePasswordChange = async (e) => {
     e.preventDefault();
     setError(""); setSuccess("");
+
+    if (passwordForm.password.length < 6) {
+      setError("New password must be at least 6 characters.");
+      return;
+    }
+    if (passwordForm.password !== passwordForm.re_password) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/users/changepassword`, {
         method: "PUT",
