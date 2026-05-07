@@ -29,7 +29,7 @@ export default function Footer() {
           <Link to="/" className="block mb-6">
             <img src="/logo.png" alt="Soxenly Logo" className="h-10 w-auto object-contain" />
           </Link>
-          <p className="text-sm text-soxenly-charcoal/60 leading-relaxed mt-6 max-w-xs">
+          <p className="font-serif italic text-lg text-soxenly-charcoal/90 leading-relaxed mt-6 max-w-xs">
             Engineered Comfort. Conscious Choice. Soft on You. Gentle on Earth.
           </p>
           <div className="flex gap-4 mt-8">
@@ -42,7 +42,7 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <h4 className="font-display text-xs uppercase tracking-[0.2em] font-bold text-soxenly-green mb-6">
+          <h4 className="font-serif text-xl text-soxenly-green mb-6">
             Shop
           </h4>
           <ul className="space-y-4 text-sm text-soxenly-charcoal/60">
@@ -57,7 +57,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="font-display text-xs uppercase tracking-[0.2em] font-bold text-soxenly-green mb-6">
+          <h4 className="font-serif text-xl text-soxenly-green mb-6">
             Sustainability
           </h4>
           <ul className="space-y-4 text-sm text-soxenly-charcoal/60">
@@ -68,10 +68,10 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="font-display text-xs uppercase tracking-[0.2em] font-bold text-soxenly-green mb-6">
+          <h4 className="font-serif text-xl text-soxenly-green mb-6">
             Join the Movement
           </h4>
-          <p className="text-sm text-soxenly-charcoal/60 mb-6 leading-relaxed">
+          <p className="font-serif italic text-sm text-soxenly-charcoal/80 mb-6 leading-relaxed">
             Stay updated on new conscious drops and sustainability efforts.
           </p>
           <div className="flex">

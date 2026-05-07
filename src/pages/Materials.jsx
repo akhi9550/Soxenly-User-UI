@@ -22,8 +22,8 @@ export default function Materials() {
         <h2 className="font-serif text-3xl lg:text-4xl text-soxenly-green mb-8">
           We believe what you wear <br className="hidden md:block"/>should be as good for the earth as it is for you.
         </h2>
-        <p className="text-lg text-soxenly-charcoal/80 leading-relaxed max-w-3xl mx-auto">
-          Every thread matters. We’ve moved away from conventional, pesticide-heavy crops and microplastic-shedding synthetics. Instead, we’ve built our supply chain around two core, sustainable materials: Organic Cotton and Bamboo.
+        <p className="font-serif italic text-xl text-soxenly-charcoal/90 leading-relaxed max-w-4xl mx-auto">
+          "Every thread matters. We’ve moved away from conventional, pesticide-heavy crops and microplastic-shedding synthetics. Instead, we’ve built our supply chain around two core, sustainable materials: Organic Cotton and Bamboo."
         </p>
       </section>
 

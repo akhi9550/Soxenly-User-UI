@@ -75,7 +75,7 @@ export default function Home() {
               Engineered <br />
               <span className="italic">Comfort.</span>
             </h1>
-            <p className="text-lg lg:text-xl text-soxenly-charcoal/80 mb-10 max-w-lg leading-relaxed">
+            <p className="font-serif text-xl lg:text-2xl text-soxenly-charcoal/90 mb-10 max-w-xl leading-relaxed italic">
               Something so small shouldn’t leave such a large footprint. 
               Soxenly reimagines the essential with sustainability at its core.
             </p>
@@ -215,7 +215,7 @@ export default function Home() {
             Soft on You. <br />
             <span className="italic">Gentle on Earth.</span>
           </h2>
-          <p className="text-lg lg:text-xl text-soxenly-cream/70 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-serif text-xl lg:text-2xl text-soxenly-cream/90 mb-12 max-w-3xl mx-auto leading-relaxed italic">
             We don’t treat sustainability as a feature. We build around it. 
             From materials to manufacturing, every decision is made to reduce impact.
           </p>
