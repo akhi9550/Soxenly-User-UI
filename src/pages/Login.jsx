@@ -32,7 +32,8 @@ export default function Login() {
         showNotification(`Welcome back, ${data.data.Users.firstname}`);
         navigate("/");
       } else {
-        showNotification(data.message || "Invalid email or password", "error");
+        const errorMsg = data.error || data.message || "Invalid email or password";
+        showNotification(errorMsg, "error");
       }
     } catch (err) {
       showNotification("Network error. Please try again.", "error");

@@ -36,10 +36,28 @@ export default function Signup() {
       const data = await response.json();
 
       if (response.ok) {
-        showNotification("Account created! Please sign in.");
-        navigate("/login");
+        localStorage.setItem("token", data.data.AccessToken);
+        localStorage.setItem("user", JSON.stringify(data.data.Users));
+        showNotification(`Welcome to Soxenly, ${data.data.Users.firstname}!`);
+        navigate("/");
       } else {
-        showNotification(data.message || "Error creating account", "error");
+        let errorMsg = data.message || "Error creating account";
+        
+        // Handle specific validation errors from backend
+        if (data.error) {
+          const err = data.error.toLowerCase();
+          if (err.includes("password") && err.includes("min")) {
+            errorMsg = "Password must be at least 6 characters long.";
+          } else if (err.includes("firstname") && err.includes("gte")) {
+            errorMsg = "First name must be at least 3 characters long.";
+          } else if (err.includes("phone") && err.includes("e164")) {
+            errorMsg = "Please enter a valid phone number with country code (e.g., +91).";
+          } else {
+            errorMsg = data.error;
+          }
+        }
+        
+        showNotification(errorMsg, "error");
       }
     } catch (err) {
       showNotification("Network error. Please try again.", "error");
