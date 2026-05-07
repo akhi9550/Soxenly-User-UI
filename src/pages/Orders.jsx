@@ -37,17 +37,24 @@ export default function Orders() {
       });
       if (response.ok) {
         const blob = await response.blob();
-        const pdfBlob = new Blob([blob], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(pdfBlob);
-        window.open(url, '_blank');
+        const url = window.URL.createObjectURL(blob);
+        
+        const newWindow = window.open(url, '_blank');
+        if (!newWindow) {
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', `invoice_${orderId}.pdf`);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        }
       } else {
         const errData = await response.json();
-        const detailedError = errData.error || errData.message || 'Server error';
-        alert(`Failed to retrieve invoice: ${detailedError}`);
+        alert(`Failed to retrieve invoice: ${errData.error || 'Server error'}`);
       }
     } catch (err) {
       console.error("Invoice view error", err);
-      alert("An unexpected error occurred while trying to view the invoice.");
+      alert("An unexpected error occurred.");
     }
   };
 
