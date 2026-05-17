@@ -232,6 +232,10 @@ export default function Profile() {
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Sidebar */}
           <div className="lg:w-1/4">
+            <div className="p-6 mb-6 flex flex-col items-center bg-white border border-soxenly-beige">
+              <img src="/logo.png" alt="Soxenly Logo" className="h-16 w-auto object-contain mb-2" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] bg-soxenly-green text-soxenly-cream px-2 py-1 inline-block">User Panel</span>
+            </div>
             <nav className="space-y-2">
               {[
                 { id: "profile", label: "Profile Info" },
