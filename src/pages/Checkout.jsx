@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatCurrency } from "../utils/formatCurrency";
 import { getImageUrl } from "../utils/imageUrl";
+import { useCart } from "../context/CartContext";
+import RazorpayModal from "../components/RazorpayModal";
 
 const Checkout = () => {
   const [checkoutData, setCheckoutData] = useState(null);
@@ -11,6 +13,8 @@ const Checkout = () => {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const [showRazorpayModal, setShowRazorpayModal] = useState(false);
+  const [pendingOrderId, setPendingOrderId] = useState(null);
   const [addressForm, setAddressForm] = useState({
     name: "",
     house_name: "",
@@ -21,6 +25,7 @@ const Checkout = () => {
   });
   const [isSavingAddress, setIsSavingAddress] = useState(false);
   const navigate = useNavigate();
+  const { fetchCartCount } = useCart();
 
   const fetchCheckoutData = async () => {
     const token = localStorage.getItem("token");
@@ -103,6 +108,21 @@ const Checkout = () => {
     }
   };
 
+  const handleRazorpaySuccess = async (rzpResponse) => {
+    setShowRazorpayModal(false);
+    const token = localStorage.getItem("token");
+    try {
+      await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/user/update_status?order_id=${pendingOrderId}&payment_id=${rzpResponse.razorpay_payment_id}&razor_id=${rzpResponse.razorpay_order_id}&signature=${rzpResponse.razorpay_signature}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (e) {
+      console.warn("Payment verification status update error", e);
+    }
+    fetchCartCount();
+    navigate(`/success?order_id=${pendingOrderId}`);
+  };
+
   const handlePlaceOrder = async () => {
     if (!selectedAddress || !selectedPayment) {
       alert("Please select an address and payment method");
@@ -113,6 +133,13 @@ const Checkout = () => {
     const token = localStorage.getItem("token");
 
     try {
+      // Find selected payment method name
+      let selectedMethodName = "";
+      checkoutData?.Payment_Method?.forEach((pGroup) => {
+        const found = pGroup.PaymentDetail?.find((m) => m.id === selectedPayment);
+        if (found) selectedMethodName = found.payment_name;
+      });
+
       // 1. Create order
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/checkout`, {
         method: "POST",
@@ -129,8 +156,6 @@ const Checkout = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // 2. Place order (COD or get payment link)
-        // Correct path is data.data.order_id based on domain.OrderSuccessResponse
         const orderId = data.data?.order_id;
         
         if (!orderId) {
@@ -144,10 +169,15 @@ const Checkout = () => {
         const placeData = await placeRes.json();
 
         if (placeRes.ok) {
-          // If Razorpay, the backend returns a link in placeData.data
-          if (placeData.data && typeof placeData.data === 'string' && placeData.data.includes('razorpay')) {
-            window.location.href = placeData.data;
+          const isRazorpay =
+            selectedMethodName.toLowerCase().includes("razorpay") ||
+            (placeData.data && typeof placeData.data === "string" && placeData.data.includes("razorpay"));
+
+          if (isRazorpay) {
+            setPendingOrderId(orderId);
+            setShowRazorpayModal(true);
           } else {
+            fetchCartCount();
             navigate(`/success?order_id=${orderId}`);
           }
         } else {
@@ -243,36 +273,59 @@ const Checkout = () => {
               <div className="space-y-4">
                 {checkoutData?.Payment_Method?.length > 0 ? (
                   checkoutData.Payment_Method.map((pGroup) => (
-                    pGroup.PaymentDetail?.filter(m => /razor\s*pay/i.test(m.payment_name))?.map((method) => (
-                      <div 
-                        key={method.id}
-                        onClick={() => setSelectedPayment(method.id)}
-                        className={`p-6 border cursor-pointer flex items-center gap-4 transition-all ${selectedPayment === method.id ? 'border-soxenly-beige bg-white ring-2 ring-black' : 'border-neutral-200 bg-white hover:border-soxenly-beige'}`}
-                      >
-                        <div className={`w-4 h-4 border border-soxenly-beige flex items-center justify-center p-0.5`}>
-                          {selectedPayment === method.id && <div className="w-full h-full bg-soxenly-green"></div>}
+                    pGroup.PaymentDetail?.map((method) => {
+                      const isRazorpay = /razor\s*pay/i.test(method.payment_name);
+                      const isSelected = selectedPayment === method.id;
+                      return (
+                        <div 
+                          key={method.id}
+                          onClick={() => setSelectedPayment(method.id)}
+                          className={`p-6 border cursor-pointer flex items-center gap-4 transition-all ${
+                            isSelected 
+                              ? 'border-soxenly-green bg-white ring-2 ring-soxenly-green shadow-sm' 
+                              : 'border-neutral-200 bg-white hover:border-soxenly-beige'
+                          }`}
+                        >
+                          <div className="w-5 h-5 border border-soxenly-beige rounded-full flex items-center justify-center p-0.5">
+                            {isSelected && <div className="w-full h-full bg-soxenly-green rounded-full"></div>}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-display font-bold uppercase text-sm tracking-widest text-neutral-900">
+                                {method.payment_name}
+                              </span>
+                              {isRazorpay && (
+                                <span className="bg-emerald-50 text-emerald-800 text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border border-emerald-200">
+                                  Recommended
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[10px] font-display text-neutral-500 mt-1 leading-relaxed max-w-[280px]">
+                              {isRazorpay
+                                ? "Cards, UPI, NetBanking & Wallets. 100% Secured by Razorpay."
+                                : "Pay securely upon delivery to your doorstep."}
+                            </p>
+                          </div>
+                          <div className="ml-auto">
+                            {isRazorpay ? (
+                              <img 
+                                src="https://razorpay.com/assets/razorpay-glyph.svg" 
+                                alt="Razorpay" 
+                                className="w-7 h-7"
+                              />
+                            ) : (
+                              <span className="text-[10px] font-display uppercase tracking-widest font-bold bg-neutral-100 px-2 py-1 text-neutral-600 rounded">
+                                COD
+                              </span>
+                            )}
+                          </div>
                         </div>
-                        <div>
-                          <span className="font-display font-bold uppercase text-sm tracking-widest">{method.payment_name}</span>
-                          <p className="text-[10px] font-display text-neutral-500 mt-2 leading-relaxed max-w-[200px]">
-                            CARDS, UPI, NETBANKING & WALLETS. 
-                            SECURED BY RAZORPAY.
-                          </p>
-                        </div>
-                        <div className="ml-auto">
-                          <img 
-                            src="https://razorpay.com/assets/razorpay-glyph.svg" 
-                            alt="Razorpay" 
-                            className="w-6 h-6 grayscale opacity-50"
-                          />
-                        </div>
-                      </div>
-                    ))
+                      );
+                    })
                   ))
                 ) : (
                   <div className="p-8 border border-dashed border-neutral-300 text-center">
                     <p className="font-display text-xs uppercase text-neutral-500">Loading Payment Methods...</p>
-                    <p className="text-[10px] font-display mt-2">(Make sure the database is seeded with Razorpay)</p>
                   </div>
                 )}
               </div>
@@ -550,6 +603,15 @@ const Checkout = () => {
           </div>
         </div>
       )}
+
+      {/* RAZORPAY PAYMENT MODAL */}
+      <RazorpayModal
+        isOpen={showRazorpayModal}
+        orderId={pendingOrderId}
+        amount={subtotal}
+        onSuccess={handleRazorpaySuccess}
+        onClose={() => setShowRazorpayModal(false)}
+      />
     </div>
   );
 };

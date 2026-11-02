@@ -448,15 +448,29 @@ export async function handleMockRequest(url, options = {}) {
     orders.unshift(newOrder);
     setStorage(ORDERS_KEY, orders);
 
-    // Empty cart upon successful order creation
-    setStorage(CART_KEY, []);
-
     return jsonResponse({ order_id: newOrderId }, 200, "Order initialized");
   }
 
   // 19. ORDER: GET /user/order/place-order
   if (pathname.startsWith("/user/order/place-order")) {
-    return jsonResponse("Order placed successfully!", 200, "Order placed successfully!");
+    const orderId = searchParams.get("order_id") || "1001";
+    // Returns link including razorpay as expected by frontend
+    const link = `https://checkout.razorpay.com/pay?order_id=${orderId}`;
+    return jsonResponse(link, 200, "Placed Order with razor pay following link");
+  }
+
+  // 19b. PAYMENT STATUS: GET /user/update_status
+  if (pathname === "/user/update_status") {
+    const orderId = parseInt(searchParams.get("order_id"));
+    const orders = getStorage(ORDERS_KEY, []);
+    const found = orders.find((o) => o.OrderDetails?.OrderId === orderId);
+    if (found) {
+      found.OrderDetails.PaymentStatus = "Paid";
+      setStorage(ORDERS_KEY, orders);
+    }
+    // Also ensure cart is cleared
+    setStorage(CART_KEY, []);
+    return jsonResponse({ status: "success" }, 200, "Payment verified");
   }
 
   // 20. ORDERS: GET /user/order
