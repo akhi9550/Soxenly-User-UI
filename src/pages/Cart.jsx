@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useNotification } from "../context/NotificationContext";
 import { useCart } from "../context/CartContext";
 import { formatCurrency } from "../utils/formatCurrency";
+import { getImageUrl } from "../utils/imageUrl";
 
 export default function Cart() {
   const [cartData, setCartData] = useState(null);
@@ -157,7 +158,7 @@ export default function Cart() {
                 <Link to={`/product/${item.product_id}`} className="block sm:w-32 sm:h-40 bg-neutral-100 border border-soxenly-beige shrink-0 overflow-hidden">
                   {item.image ? (
                     <img 
-                      src={item.image.startsWith("http") ? item.image : `${import.meta.env.VITE_API_BASE_URL}${item.image}`} 
+                      src={getImageUrl(item.image)} 
                       alt={item.product_name} 
                       className="w-full h-full object-cover"
                     />

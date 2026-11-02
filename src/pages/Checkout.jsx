@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatCurrency } from "../utils/formatCurrency";
+import { getImageUrl } from "../utils/imageUrl";
 
 const Checkout = () => {
   const [checkoutData, setCheckoutData] = useState(null);
@@ -147,7 +148,7 @@ const Checkout = () => {
           if (placeData.data && typeof placeData.data === 'string' && placeData.data.includes('razorpay')) {
             window.location.href = placeData.data;
           } else {
-            navigate("/shop", { state: { message: "Order placed successfully!" } });
+            navigate(`/success?order_id=${orderId}`);
           }
         } else {
           alert(placeData.error || "Failed to finalize order");
@@ -288,7 +289,7 @@ const Checkout = () => {
                   <div key={idx} className="flex gap-4">
                     <div className="w-16 h-20 bg-neutral-100 border border-soxenly-beige shrink-0 overflow-hidden">
                       {item.image ? (
-                        <img src={item.image.startsWith("http") ? item.image : `${import.meta.env.VITE_API_BASE_URL}${item.image}`} alt={item.product_name} className="w-full h-full object-cover" />
+                        <img src={getImageUrl(item.image)} alt={item.product_name} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-[8px] font-display uppercase text-neutral-400">IMG</div>
                       )}

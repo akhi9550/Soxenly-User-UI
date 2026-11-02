@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { formatCurrency } from "../utils/formatCurrency";
+import { getImageUrl } from "../utils/imageUrl";
 import heroImageLocal from "../assets/hero.png";
 
 export default function Home() {
@@ -30,17 +31,6 @@ export default function Home() {
   }, []);
 
   const heroBanner = banners[0];
-
-  const getImageUrl = (path) => {
-    if (!path) return heroImageLocal;
-    if (path.startsWith("http")) return path;
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
-    if (path.includes("/uploads/")) {
-      return path.startsWith("/") ? `${baseUrl}${path}` : `${baseUrl}/${path}`;
-    }
-    const cleanPath = path.startsWith("/") ? path : `/${path}`;
-    return `${baseUrl}/uploads${cleanPath}`;
-  };
 
   return (
     <div className="font-sans text-soxenly-charcoal bg-soxenly-cream overflow-x-hidden" data-testid="home-page">

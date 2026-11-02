@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { isMockEnabled, setMockEnabled } from "../config/appConfig";
 
 export default function Footer() {
   const [categories, setCategories] = useState([]);
+  const mockActive = isMockEnabled();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -48,8 +50,8 @@ export default function Footer() {
           <ul className="space-y-4 text-sm text-soxenly-charcoal/60">
             <li><Link to="/shop" className="hover:text-soxenly-leaf transition-colors">All Products</Link></li>
             {categories.slice(0, 4).map((cat) => (
-              <li key={cat.ID}>
-                <Link to="/shop" className="hover:text-soxenly-leaf transition-colors capitalize">
+              <li key={cat.id || cat.ID}>
+                <Link to={`/shop?category=${encodeURIComponent(cat.category)}`} className="hover:text-soxenly-leaf transition-colors capitalize">
                   {cat.category}
                 </Link>
               </li>
@@ -91,12 +93,23 @@ export default function Footer() {
       </div>
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 py-8 border-t border-soxenly-beige flex flex-col md:flex-row justify-between items-center text-[10px] font-display uppercase tracking-widest text-soxenly-charcoal/40 font-bold gap-4">
         <span>© {new Date().getFullYear()} SOXENLY — ALL RIGHTS RESERVED.</span>
-        <div className="flex gap-8">
-          <Link to="/privacy" className="hover:text-soxenly-green">Privacy Policy</Link>
-          <Link to="/terms" className="hover:text-soxenly-green">Terms of Service</Link>
+        <div className="flex items-center gap-6">
+          <button
+            onClick={() => setMockEnabled(!mockActive)}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-soxenly-cream border border-soxenly-beige hover:border-soxenly-green rounded-full transition-all text-[9px] uppercase tracking-wider text-soxenly-green font-bold cursor-pointer"
+            title="Toggle between local mock data and live backend API"
+          >
+            <span className={`w-2 h-2 rounded-full ${mockActive ? "bg-emerald-500 animate-pulse" : "bg-neutral-400"}`}></span>
+            <span>{mockActive ? "Config: Mock Mode (Active)" : "Config: Live Backend Mode"}</span>
+          </button>
+          <div className="flex gap-6">
+            <Link to="/privacy" className="hover:text-soxenly-green">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-soxenly-green">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+
 

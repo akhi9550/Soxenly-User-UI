@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useNotification } from "../context/NotificationContext";
 import { useCart } from "../context/CartContext";
 import { formatCurrency } from "../utils/formatCurrency";
+import { getImageUrl } from "../utils/imageUrl";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -30,6 +31,10 @@ export default function ProductDetail() {
           setProduct(productData);
           if (productData.image && productData.image.length > 0) {
             setMainImage(productData.image[0]);
+          }
+          if (productData.variants && productData.variants.length > 0) {
+            const defaultVariant = productData.variants.find((v) => v.stock > 0) || productData.variants[0];
+            setSelectedSize(defaultVariant.size);
           }
 
           // Fetch related products from the same category
@@ -244,7 +249,7 @@ export default function ProductDetail() {
           <div className="border border-soxenly-beige aspect-square bg-neutral-100 overflow-hidden relative">
             {mainImage ? (
               <img 
-                src={mainImage.startsWith("http") ? mainImage : `${import.meta.env.VITE_API_BASE_URL}${mainImage}`} 
+                src={getImageUrl(mainImage)} 
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
@@ -268,7 +273,7 @@ export default function ProductDetail() {
                   onClick={() => setMainImage(img)}
                   className={`aspect-square border ${mainImage === img ? 'border-[red-600]' : 'border-soxenly-beige'} bg-neutral-100 overflow-hidden hover:opacity-80 transition-all`}
                 >
-                  <img src={img.startsWith("http") ? img : `${import.meta.env.VITE_API_BASE_URL}${img}`} alt="" className="w-full h-full object-cover" />
+                  <img src={getImageUrl(img)} alt="" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -465,7 +470,7 @@ export default function ProductDetail() {
                     <img
                       alt={p.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      src={p.image[0].startsWith("http") ? p.image[0] : `${import.meta.env.VITE_API_BASE_URL}${p.image[0]}`}
+                      src={getImageUrl(p.image[0])}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[10px] font-display text-neutral-400">NO IMAGE</div>

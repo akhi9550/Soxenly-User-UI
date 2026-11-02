@@ -134,10 +134,25 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-soxenly-green text-soxenly-cream mt-6 py-4 uppercase text-sm tracking-[0.25em] font-display font-bold hover:bg-[red-600] disabled:opacity-50 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+            className="w-full bg-soxenly-green text-soxenly-cream mt-6 py-4 uppercase text-sm tracking-[0.25em] font-display font-bold hover:bg-soxenly-leaf disabled:opacity-50 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
             data-testid="login-submit"
           >
             {loading ? "Verifying..." : "Enter"}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEmail("akhil@soxenly.com");
+              setPassword("demo123");
+              setTimeout(() => {
+                const btn = document.querySelector('[data-testid="login-submit"]');
+                if (btn) btn.click();
+              }, 50);
+            }}
+            className="w-full mt-3 border border-soxenly-green text-soxenly-green py-3 uppercase text-xs tracking-[0.2em] font-display font-bold hover:bg-soxenly-green hover:text-soxenly-cream transition-all"
+          >
+            Demo Sign In (1-Click)
           </button>
           
           <div className="my-6 flex items-center justify-center">

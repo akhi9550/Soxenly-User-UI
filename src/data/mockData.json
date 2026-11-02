@@ -1,0 +1,600 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "ID": 1,
+      "category": "Crew Socks",
+      "image": "/socks/sock-01.webp",
+      "description": "Classic mid-calf ribbed essentials engineered for all-day cushioning."
+    },
+    {
+      "id": 2,
+      "ID": 2,
+      "category": "Ankle & Running",
+      "image": "/socks/sock-03.webp",
+      "description": "Breathable low-profile performance socks with blister-guard heel tabs."
+    },
+    {
+      "id": 3,
+      "ID": 3,
+      "category": "Invisible No-Show",
+      "image": "/socks/sock-07.webp",
+      "description": "Zero-slip silicone grip socks that stay completely hidden inside sneakers."
+    },
+    {
+      "id": 4,
+      "ID": 4,
+      "category": "Organic Bamboo",
+      "image": "/socks/sock-05.webp",
+      "description": "Ultra-silky bamboo viscose with natural thermal regulation and antimicrobial fiber."
+    },
+    {
+      "id": 5,
+      "ID": 5,
+      "category": "Merino Trail & Boot",
+      "image": "/socks/sock-08.webp",
+      "description": "Heavyweight recycled merino wool blend with zoned arch support for hiking."
+    },
+    {
+      "id": 6,
+      "ID": 6,
+      "category": "Ribbed Essentials",
+      "image": "/socks/sock-02.webp",
+      "description": "Timeless heritage rib knit spun from 100% GOTS-certified organic cotton."
+    }
+  ],
+  "banners": [
+    {
+      "id": 1,
+      "title": "Engineered Comfort.",
+      "subtitle1": "The Everyday Reimagined",
+      "subtitle2": "Conscious Choice • Gentle on Earth",
+      "image": "/socks/sock-11.webp"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "The Essential Crew - Forest Olive",
+      "description": "Crafted with ultra-fine combed organic cotton and reinforced high-wear zones. Features seamless hand-linked toe stitching to eliminate irritation, targeted arch compression, and an ergonomic stay-up ribbed cuff that never slips or pinches.",
+      "category_id": 1,
+      "category_name": "Crew Socks",
+      "price": 399,
+      "discounted_price": 349,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-01.webp",
+        "/socks/sock-08.webp",
+        "/socks/sock-17.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 14 },
+        { "size": "M", "stock": 28 },
+        { "size": "L", "stock": 22 },
+        { "size": "XL", "stock": 9 }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Terra Ribbed Crew - Clay Terracotta",
+      "description": "Inspired by sun-baked terracotta clay. Knitted with high-gauge organic cotton and natural plant-based dyes. The dense ribbed construction provides gentle calf compression and luxurious textured warmth.",
+      "category_id": 6,
+      "category_name": "Ribbed Essentials",
+      "price": 449,
+      "discounted_price": 399,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-02.webp",
+        "/socks/sock-04.webp",
+        "/socks/sock-13.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 10 },
+        { "size": "M", "stock": 24 },
+        { "size": "L", "stock": 18 },
+        { "size": "XL", "stock": 6 }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "CloudKnit Ankle - Sage Green",
+      "description": "Featherlight ankle-height sock engineered for daily workouts and casual wear. Integrated micro-mesh breathability channels vent heat rapidly while the anatomical Y-stitch heel cup locks your foot in place.",
+      "category_id": 2,
+      "category_name": "Ankle & Running",
+      "price": 349,
+      "discounted_price": 299,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-03.webp",
+        "/socks/sock-15.webp",
+        "/socks/sock-20.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 20 },
+        { "size": "M", "stock": 35 },
+        { "size": "L", "stock": 25 },
+        { "size": "XL", "stock": 12 }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Desert Sand Crew - Dune Beige",
+      "description": "An understated neutral staple. Made with unbleached organic yarns that soften with every wash. Designed with plush French terry padding across the footbed for cloud-like impact absorption.",
+      "category_id": 1,
+      "category_name": "Crew Socks",
+      "price": 399,
+      "discounted_price": 349,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-04.webp",
+        "/socks/sock-06.webp",
+        "/socks/sock-12.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 16 },
+        { "size": "M", "stock": 30 },
+        { "size": "L", "stock": 20 },
+        { "size": "XL", "stock": 11 }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Pure Bamboo Low-Cut - Oat Milk",
+      "description": "Spun from naturally hypoallergenic and thermo-regulating organic bamboo viscose. Three times more absorbent than standard cotton, keeping your feet dry, odor-free, and blister-free through long days.",
+      "category_id": 4,
+      "category_name": "Organic Bamboo",
+      "price": 379,
+      "discounted_price": 329,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-05.webp",
+        "/socks/sock-14.webp",
+        "/socks/sock-07.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 18 },
+        { "size": "M", "stock": 26 },
+        { "size": "L", "stock": 15 },
+        { "size": "XL", "stock": 8 }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Raw Linen Mid-Calf - Harvest Wheat",
+      "description": "A textured blend of organic linen and combed cotton offering crisp breathability in warmer climates. The natural flecked yarn gives each pair a distinct rustic artisan appearance.",
+      "category_id": 6,
+      "category_name": "Ribbed Essentials",
+      "price": 429,
+      "discounted_price": 389,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-06.webp",
+        "/socks/sock-10.webp",
+        "/socks/sock-12.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 12 },
+        { "size": "M", "stock": 18 },
+        { "size": "L", "stock": 14 },
+        { "size": "XL", "stock": 5 }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Invisible Step - Pumice Stone",
+      "description": "Cut ultra-low for clean lines with loafers, boat shoes, and low-cut sneakers. Features 3 silicone wave-grippers on the heel to prevent slippage and lightweight arch band compression.",
+      "category_id": 3,
+      "category_name": "Invisible No-Show",
+      "price": 299,
+      "discounted_price": 249,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-07.webp",
+        "/socks/sock-05.webp",
+        "/socks/sock-14.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 25 },
+        { "size": "M", "stock": 40 },
+        { "size": "L", "stock": 30 },
+        { "size": "XL", "stock": 15 }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Deep Moss Trail Sock - Pine Forest",
+      "description": "Rugged and resilient. Heavy cushion Terry loop interior provides exceptional thermal insulation and blister protection for hiking boots and rough terrain walks.",
+      "category_id": 5,
+      "category_name": "Merino Trail & Boot",
+      "price": 549,
+      "discounted_price": 499,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-08.webp",
+        "/socks/sock-18.webp",
+        "/socks/sock-21.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 11 },
+        { "size": "M", "stock": 22 },
+        { "size": "L", "stock": 19 },
+        { "size": "XL", "stock": 7 }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Minimalist Athletic Quarter - Eucalyptus",
+      "description": "Designed for running, cycling, and functional training. Includes 360-degree midfoot compression, moisture-wicking capillary yarn, and an anti-bunching instep hinge.",
+      "category_id": 2,
+      "category_name": "Ankle & Running",
+      "price": 399,
+      "discounted_price": 349,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-09.webp",
+        "/socks/sock-19.webp",
+        "/socks/sock-03.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 15 },
+        { "size": "M", "stock": 29 },
+        { "size": "L", "stock": 21 },
+        { "size": "XL", "stock": 10 }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Heritage Heather Crew - Weathered Khaki",
+      "description": "A timeless heritage sock knit using two-tone twisted yarns. Perfect balance of casual texture and formal refinement for boots and oxfords alike.",
+      "category_id": 1,
+      "category_name": "Crew Socks",
+      "price": 429,
+      "discounted_price": 379,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-10.webp",
+        "/socks/sock-01.webp",
+        "/socks/sock-22.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 14 },
+        { "size": "M", "stock": 25 },
+        { "size": "L", "stock": 16 },
+        { "size": "XL", "stock": 8 }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "The Sovereign Studio Pack - Multi-Tone Trio",
+      "description": "A signature multi-pack featuring our three best-selling earth tones. Packaged in a 100% biodegradable seed-embedded paper box ready for mindful gifting.",
+      "category_id": 6,
+      "category_name": "Ribbed Essentials",
+      "price": 899,
+      "discounted_price": 799,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-11.webp",
+        "/socks/sock-02.webp",
+        "/socks/sock-04.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 8 },
+        { "size": "M", "stock": 16 },
+        { "size": "L", "stock": 12 },
+        { "size": "XL", "stock": 4 }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Sun-Washed Ochre Rib - Golden Sand",
+      "description": "Warm golden ochre hue created using low-water reactive mineral dyes. Extra reinforced heel and toe using recycled polyamide core yarn for 3x durability.",
+      "category_id": 1,
+      "category_name": "Crew Socks",
+      "price": 449,
+      "discounted_price": 399,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-12.webp",
+        "/socks/sock-06.webp",
+        "/socks/sock-13.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 12 },
+        { "size": "M", "stock": 20 },
+        { "size": "L", "stock": 15 },
+        { "size": "XL", "stock": 6 }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Warm Earth Ankle - Cinnamon Bark",
+      "description": "A cozy cinnamon low-cut sock that pairs seamlessly with trainers and loungewear. Moisture-dispersing organic cotton knit keeps feet fresh from morning to dusk.",
+      "category_id": 2,
+      "category_name": "Ankle & Running",
+      "price": 349,
+      "discounted_price": 299,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-13.webp",
+        "/socks/sock-02.webp",
+        "/socks/sock-16.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 17 },
+        { "size": "M", "stock": 32 },
+        { "size": "L", "stock": 24 },
+        { "size": "XL", "stock": 10 }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Zero-Dye Undyed Organic - Natural Ecru",
+      "description": "Completely free of bleaches, chemicals, or synthetic dyes. Just raw, unadulterated organic cotton fibers in their natural creamy ecru tone. The purest sock we make.",
+      "category_id": 4,
+      "category_name": "Organic Bamboo",
+      "price": 499,
+      "discounted_price": 449,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-14.webp",
+        "/socks/sock-05.webp",
+        "/socks/sock-07.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 13 },
+        { "size": "M", "stock": 22 },
+        { "size": "L", "stock": 17 },
+        { "size": "XL", "stock": 7 }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Alpine Trekker Boot - Lichen & Cedar",
+      "description": "Designed for cold mornings and mountain paths. Dual-density cushion under the metatarsals prevents foot fatigue, while the high-stretch ribbed cuff stays comfortably snug.",
+      "category_id": 5,
+      "category_name": "Merino Trail & Boot",
+      "price": 599,
+      "discounted_price": 529,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-15.webp",
+        "/socks/sock-17.webp",
+        "/socks/sock-21.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 9 },
+        { "size": "M", "stock": 19 },
+        { "size": "L", "stock": 15 },
+        { "size": "XL", "stock": 5 }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Sedona Clay Heavy Knit - Rust Umber",
+      "description": "Rich earth tone with chunky cable-inspired ribbing. Generously cushioned yet breathable, ideal for boots, campfires, or slow Sunday mornings at home.",
+      "category_id": 5,
+      "category_name": "Merino Trail & Boot",
+      "price": 599,
+      "discounted_price": 529,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-16.webp",
+        "/socks/sock-02.webp",
+        "/socks/sock-11.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 10 },
+        { "size": "M", "stock": 18 },
+        { "size": "L", "stock": 14 },
+        { "size": "XL", "stock": 4 }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Evergreen Active Runner - Spruce Green",
+      "description": "Engineered specifically for high mileage. Dynamic arch band prevents sock rotation during runs, while reinforced heel counters cushion high impact strike zones.",
+      "category_id": 2,
+      "category_name": "Ankle & Running",
+      "price": 399,
+      "discounted_price": 349,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-17.webp",
+        "/socks/sock-18.webp",
+        "/socks/sock-20.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 15 },
+        { "size": "M", "stock": 27 },
+        { "size": "L", "stock": 20 },
+        { "size": "XL", "stock": 8 }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Highland Cushion Crew - Juniper Heather",
+      "description": "Spun from combed melange yarns for subtle tonal depth. Enhanced with gentle graduated compression around the ankle to promote circulation during long desk days or flights.",
+      "category_id": 1,
+      "category_name": "Crew Socks",
+      "price": 469,
+      "discounted_price": 419,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-18.webp",
+        "/socks/sock-19.webp",
+        "/socks/sock-08.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 12 },
+        { "size": "M", "stock": 24 },
+        { "size": "L", "stock": 16 },
+        { "size": "XL", "stock": 6 }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Stealth Low-Profile Sneaker Sock - Agave",
+      "description": "Discreet low cut with high-performance credentials. Seamless toe enclosure avoids friction, while the silicone inner heel tab guarantees it will never slip off your heel.",
+      "category_id": 3,
+      "category_name": "Invisible No-Show",
+      "price": 329,
+      "discounted_price": 279,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-19.webp",
+        "/socks/sock-09.webp",
+        "/socks/sock-07.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 18 },
+        { "size": "M", "stock": 35 },
+        { "size": "L", "stock": 22 },
+        { "size": "XL", "stock": 11 }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "All-Day Compression Crew - Thyme & Slate",
+      "description": "Mild 12-15 mmHg graduated compression designed to revitalize tired legs. Knitted with silky bamboo yarns that regulate temperature and soothe fatigue from standing or travel.",
+      "category_id": 4,
+      "category_name": "Organic Bamboo",
+      "price": 549,
+      "discounted_price": 499,
+      "product_status": "active",
+      "image": [
+        "/socks/sock-20.webp",
+        "/socks/sock-21.webp",
+        "/socks/sock-22.webp"
+      ],
+      "variants": [
+        { "size": "S", "stock": 14 },
+        { "size": "M", "stock": 26 },
+        { "size": "L", "stock": 18 },
+        { "size": "XL", "stock": 7 }
+      ]
+    }
+  ],
+  "defaultAddresses": [
+    {
+      "id": 1,
+      "name": "Akhil Kumar",
+      "house_name": "Flat 402, Green Valley Apartments",
+      "street": "12th Cross, 100ft Road, Indiranagar",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "pin": "560038"
+    },
+    {
+      "id": 2,
+      "name": "Akhil (Office)",
+      "house_name": "Level 4, Soxenly Studio Hub",
+      "street": "Outer Ring Road, Bellandur",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "pin": "560103"
+    }
+  ],
+  "paymentMethods": [
+    {
+      "PaymentDetail": [
+        { "id": 1, "payment_name": "Razorpay (UPI / Cards / Net Banking)" },
+        { "id": 2, "payment_name": "Cash on Delivery (COD)" }
+      ]
+    }
+  ],
+  "initialCart": [
+    {
+      "product_id": 1,
+      "product_name": "The Essential Crew - Forest Olive",
+      "size": "M",
+      "quantity": 2,
+      "unit_price": 399,
+      "total_price": 798,
+      "image": "/socks/sock-01.webp"
+    },
+    {
+      "product_id": 3,
+      "product_name": "CloudKnit Ankle - Sage Green",
+      "size": "M",
+      "quantity": 1,
+      "unit_price": 349,
+      "total_price": 349,
+      "image": "/socks/sock-03.webp"
+    }
+  ],
+  "initialWishlist": [
+    {
+      "id": 2,
+      "name": "Terra Ribbed Crew - Clay Terracotta",
+      "description": "High-gauge organic cotton ribbed crew.",
+      "price": 449,
+      "discounted_price": 399,
+      "category_name": "Ribbed Essentials",
+      "image": ["/socks/sock-02.webp", "/socks/sock-04.webp"]
+    },
+    {
+      "id": 8,
+      "name": "Deep Moss Trail Sock - Pine Forest",
+      "description": "Rugged heavyweight recycled merino wool blend.",
+      "price": 549,
+      "discounted_price": 499,
+      "category_name": "Merino Trail & Boot",
+      "image": ["/socks/sock-08.webp", "/socks/sock-18.webp"]
+    }
+  ],
+  "initialOrders": [
+    {
+      "OrderDetails": {
+        "OrderId": 1042,
+        "PaymentStatus": "Paid",
+        "ShipmentStatus": "Delivered",
+        "FinalPrice": 798,
+        "CreatedAt": "2026-10-24T14:30:00Z"
+      },
+      "OrderProductDetails": [
+        {
+          "product_id": 1,
+          "product_name": "The Essential Crew - Forest Olive",
+          "quantity": 2,
+          "total_price": 798,
+          "image_url": "/socks/sock-01.webp"
+        }
+      ]
+    },
+    {
+      "OrderDetails": {
+        "OrderId": 1055,
+        "PaymentStatus": "Paid",
+        "ShipmentStatus": "Order Placed",
+        "FinalPrice": 1147,
+        "CreatedAt": "2026-11-01T10:15:00Z"
+      },
+      "OrderProductDetails": [
+        {
+          "product_id": 2,
+          "product_name": "Terra Ribbed Crew - Clay Terracotta",
+          "quantity": 1,
+          "total_price": 449,
+          "image_url": "/socks/sock-02.webp"
+        },
+        {
+          "product_id": 5,
+          "product_name": "Pure Bamboo Low-Cut - Oat Milk",
+          "quantity": 2,
+          "total_price": 698,
+          "image_url": "/socks/sock-05.webp"
+        }
+      ]
+    }
+  ],
+  "demoUser": {
+    "id": 1,
+    "firstname": "Akhil",
+    "lastname": "Kumar",
+    "email": "akhil@soxenly.com",
+    "phone": "+91 98765 43210"
+  },
+  "wallet": {
+    "amount": 450
+  }
+}

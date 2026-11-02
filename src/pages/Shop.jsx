@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { formatCurrency } from "../utils/formatCurrency";
+import { getImageUrl } from "../utils/imageUrl";
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -124,7 +125,7 @@ export default function Shop() {
                     <img
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      src={product.image[0].startsWith("http") ? product.image[0] : `${import.meta.env.VITE_API_BASE_URL}${product.image[0]}`}
+                      src={getImageUrl(product.image[0])}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[10px] font-display text-neutral-400 uppercase tracking-widest">

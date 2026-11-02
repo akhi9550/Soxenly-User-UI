@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatCurrency } from "../utils/formatCurrency";
+import { getImageUrl } from "../utils/imageUrl";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -195,7 +196,7 @@ export default function Orders() {
                         <div className="w-16 h-16 bg-soxenly-cream flex-shrink-0 border border-soxenly-beige overflow-hidden">
                           {item.image_url ? (
                             <img 
-                              src={item.image_url.startsWith('http') ? item.image_url : `${import.meta.env.VITE_API_BASE_URL}${item.image_url.startsWith('/') ? '' : '/'}${item.image_url}`} 
+                              src={getImageUrl(item.image_url)} 
                               alt={item.product_name} 
                               className="w-full h-full object-cover"
                             />
